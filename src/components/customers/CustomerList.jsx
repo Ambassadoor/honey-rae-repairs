@@ -9,7 +9,7 @@ export const CustomerList = () => {
 
     useEffect(() => {
         getNonStaffUsers().then(res => setCustomers(res))
-    })
+    }, [])
 
 
     return (
