@@ -10,3 +10,11 @@
     flex-basis: 31%;
     margin: 0.5rem;
 }
+
+.employees-container {
+  margin: 1rem 5rem 0rem 5rem;
+}
+
+.employees-container > h2 {
+  margin-top: 0;
+}

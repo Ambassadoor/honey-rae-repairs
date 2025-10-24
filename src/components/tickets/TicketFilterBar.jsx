@@ -19,6 +19,7 @@ export const TicketFilterBar = ({ setShowEmergency, setSearchTerm }) => {
         Show All
       </button>
       <input
+        name="ticket-search"
         type="text"
         placeholder="Search Tickets"
         className="ticket-search"

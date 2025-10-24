@@ -11,8 +11,13 @@ export const EmployeeList = () => {
     }, [])
 
     return (
-        <div className="employees">
+        <>
+            <div className="employees-container">
+                <h2>Employees</h2>
+            <article className="employees">
             {staff.map(s => <User user={s} key={s.id}></User>)}
-        </div>
+            </article>
+            </div>
+        </>
     )
 }
