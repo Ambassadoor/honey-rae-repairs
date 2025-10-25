@@ -4,16 +4,20 @@ import "./Ticket.css";
 import { Ticket } from "./Ticket.jsx";
 import { TicketFilterBar } from "./TicketFilterBar.jsx";
 
-export const TicketList = () => {
+export const TicketList = ({user}) => {
   const [allTickets, setAllTickets] = useState([]);
   const [showEmergency, setShowEmergency] = useState(false);
   const [displayedTickets, setDisplayedTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
-    getAllTickets().then((tickets) => {
+  const getAndSetTickets = () => {
+      getAllTickets().then((tickets) => {
       setAllTickets(tickets);
     });
+  }
+
+  useEffect(() => {
+    getAndSetTickets()
   }, []);
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export const TicketList = () => {
         ></TicketFilterBar>
         <article className="tickets">
           {displayedTickets.map((ticket) => {
-            return <Ticket ticket={ticket} key={ticket.id}></Ticket>;
+            return <Ticket ticket={ticket} key={ticket.id} user={user} getAndSetTickets={getAndSetTickets}></Ticket>;
           })}
         </article>
       </div>
