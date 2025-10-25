@@ -18,3 +18,26 @@
 .employees-container > h2 {
   margin-top: 0;
 }
+
+section.employee {
+  margin: 3rem;
+}
+
+.employee {
+  background-color: var(--white);
+  border: 1px solid var(--outline);
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.employee-info {
+  color: var(--info);
+  font-family: "Roboto", sans-serif;
+}
+
+.employee-header {
+  font-size: larger;
+  font-weight: 700;
+  line-height: 3rem;
+  color: var(--primary);
+}

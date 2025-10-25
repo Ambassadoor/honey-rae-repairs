@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getStaffUsers } from "../../services/userService.js";
 import { User } from "../users/User.jsx";
+import { Link } from "react-router-dom";
 import "./Employees.css"
 
 export const EmployeeList = () => {
@@ -15,7 +16,7 @@ export const EmployeeList = () => {
             <div className="employees-container">
                 <h2>Employees</h2>
             <article className="employees">
-            {staff.map(s => <User user={s} key={s.id}></User>)}
+            {staff.map(s => <Link to={`/employees/${s.id}`} key={s.id}><User user={s}></User></Link>)}
             </article>
             </div>
         </>
