@@ -12,13 +12,13 @@ export const TicketList = ({user}) => {
 
   const getAndSetTickets = () => {
       getAllTickets().then((tickets) => {
-      setAllTickets(tickets);
+        user.isStaff ? setAllTickets(tickets) : setAllTickets(tickets.filter(t => t.userId === user.id));
     });
   }
 
   useEffect(() => {
     getAndSetTickets()
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     setDisplayedTickets(
