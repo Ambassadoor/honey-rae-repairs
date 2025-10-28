@@ -1,6 +1,7 @@
-export const TicketFilterBar = ({ setShowEmergency, setSearchTerm }) => {
+export const TicketFilterBar = ({ user, setShowEmergency, setSearchTerm, setShowOpen }) => {
   return (
     <div className="filter-bar">
+      {user.isStaff ? <>
       <button
         className="filter-btn btn-primary"
         onClick={() => {
@@ -26,7 +27,20 @@ export const TicketFilterBar = ({ setShowEmergency, setSearchTerm }) => {
         onChange={(event) => {
           setSearchTerm(event.target.value);
         }}
-      ></input>
+      ></input> </> : <>
+        <button 
+          className="filter-btn btn-primary"
+          onClick={() => {}}
+          >Create Ticket</button>
+        <button 
+          className="filter-btn btn-info"
+          onClick={() => {setShowOpen(true)}}
+          >Open Tickets</button>
+        <button 
+          className="filter-btn btn-secondary"
+          onClick={() => {setShowOpen(false)}} 
+          >All My Tickets</button>
+      </>}
     </div>
   );
 };

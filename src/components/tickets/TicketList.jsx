@@ -9,6 +9,7 @@ export const TicketList = ({user}) => {
   const [showEmergency, setShowEmergency] = useState(false);
   const [displayedTickets, setDisplayedTickets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showOpen, setShowOpen] = useState(false);
 
   const getAndSetTickets = () => {
       getAllTickets().then((tickets) => {
@@ -32,13 +33,21 @@ export const TicketList = ({user}) => {
     );
   }, [searchTerm, allTickets]);
 
+  useEffect(() => {
+    setDisplayedTickets(
+      showOpen ? allTickets.filter((ticket) => ticket.dateCompleted === "") : allTickets
+    )
+  }, [showOpen, allTickets])
+
   return (
     <>
       <div className="tickets-container">
         <h2>Tickets</h2>
         <TicketFilterBar
+          user={user}
           setShowEmergency={setShowEmergency}
           setSearchTerm={setSearchTerm}
+          setShowOpen={setShowOpen}
         ></TicketFilterBar>
         <article className="tickets">
           {displayedTickets.map((ticket) => {
