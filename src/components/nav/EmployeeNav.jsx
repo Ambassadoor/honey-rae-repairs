@@ -4,7 +4,7 @@ import "./NavBar.css"
 
 
 
-export const NavBar = () => {
+export const EmployeeNav = () => {
 
     const navigate = useNavigate()
 
