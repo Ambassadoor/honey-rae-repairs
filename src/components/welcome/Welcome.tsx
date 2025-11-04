@@ -1,14 +1,14 @@
-import type { JSX } from "react"
-import "./Welcome.css"
+import type { JSX } from "react";
+import "./Welcome.css";
 
 export const Welcome = (): JSX.Element => {
-    return (
-        <div className="welcome-container">
-            <h1>
-                <span>Welcome to</span>
-                <span>Honey Rae Repair Shop</span>
-            </h1>
-            <div>Your one-stop-shop to get all your electronics fixed</div>
-        </div>
-    )
-}
+  return (
+    <div className="welcome-container">
+      <h1>
+        <span>Welcome to</span>
+        <span>Honey Rae Repair Shop</span>
+      </h1>
+      <div>Your one-stop-shop to get all your electronics fixed</div>
+    </div>
+  );
+};

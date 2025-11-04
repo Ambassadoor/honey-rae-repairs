@@ -1,8 +1,8 @@
-import { useState, type ChangeEvent, type FormEvent, type JSX } from "react"
-import { useNavigate } from "react-router-dom"
-import "./Login.css"
-import { createUser, getUserByEmail } from "../../services/userService.js"
-import { type UserType } from "../../services/employeeService.js"
+import { useState, type ChangeEvent, type FormEvent, type JSX } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
+import { createUser, getUserByEmail } from "../../services/userService.js";
+import { type UserType } from "../../services/employeeService.js";
 
 export const Register = (): JSX.Element => {
   const [customer, setCustomer] = useState<UserType>({
@@ -10,8 +10,8 @@ export const Register = (): JSX.Element => {
     email: "",
     fullName: "",
     isStaff: false,
-  })
-  let navigate = useNavigate()
+  });
+  let navigate = useNavigate();
 
   const registerNewUser = () => {
     createUser(customer).then((createdUser) => {
@@ -21,32 +21,32 @@ export const Register = (): JSX.Element => {
           JSON.stringify({
             id: createdUser.id,
             staff: createdUser.isStaff,
-          })
-        )
+          }),
+        );
 
-        navigate("/")
+        navigate("/");
       }
-    })
-  }
+    });
+  };
 
   const handleRegister = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     getUserByEmail(customer.email).then((response) => {
       if (response.length > 0) {
         // Duplicate email. No good.
-        window.alert("Account with that email address already exists")
+        window.alert("Account with that email address already exists");
       } else {
         // Good email, create user.
-        registerNewUser()
+        registerNewUser();
       }
-    })
-  }
+    });
+  };
 
   const updateCustomer = (evt: ChangeEvent<HTMLInputElement>) => {
-    const copy: UserType = { ...customer }
-    copy.isStaff = evt.target.value === "on"
-    setCustomer(copy)
-  }
+    const copy: UserType = { ...customer };
+    copy.isStaff = evt.target.value === "on";
+    setCustomer(copy);
+  };
 
   return (
     <main style={{ textAlign: "center" }}>
@@ -83,9 +83,9 @@ export const Register = (): JSX.Element => {
             <label>
               <input
                 onChange={(evt) => {
-                  const copy = { ...customer }
-                  copy.isStaff = evt.target.checked
-                  setCustomer(copy)
+                  const copy = { ...customer };
+                  copy.isStaff = evt.target.checked;
+                  setCustomer(copy);
                 }}
                 type="checkbox"
                 id="isStaff"
@@ -103,5 +103,5 @@ export const Register = (): JSX.Element => {
         </fieldset>
       </form>
     </main>
-  )
-}
+  );
+};

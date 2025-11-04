@@ -1,15 +1,18 @@
 import { useEffect, useState, type JSX } from "react";
-import { getAllTickets, type ServiceTicket } from "../../services/ticketService.js";
+import {
+  getAllTickets,
+  type ServiceTicket,
+} from "../../services/ticketService.js";
 import "./Ticket.css";
 import { Ticket } from "./Ticket.jsx";
 import { TicketFilterBar } from "./TicketFilterBar.jsx";
-import type { User } from "../../services/employeeService.js";
+import type { UserType } from "../../services/employeeService.js";
 
 interface TicketListProps {
-  user: User
+  user: UserType;
 }
 
-export const TicketList = ({user}: TicketListProps): JSX.Element => {
+export const TicketList = ({ user }: TicketListProps): JSX.Element => {
   const [allTickets, setAllTickets] = useState<ServiceTicket[]>([]);
   const [showEmergency, setShowEmergency] = useState<boolean>(false);
   const [displayedTickets, setDisplayedTickets] = useState<ServiceTicket[]>([]);
@@ -17,13 +20,15 @@ export const TicketList = ({user}: TicketListProps): JSX.Element => {
   const [showOpen, setShowOpen] = useState<boolean>(false);
 
   const getAndSetTickets = (): void => {
-      getAllTickets().then((tickets) => {
-        user.isStaff ? setAllTickets(tickets) : setAllTickets(tickets.filter(t => t.userId === user.id));
+    getAllTickets().then((tickets) => {
+      user.isStaff
+        ? setAllTickets(tickets)
+        : setAllTickets(tickets.filter((t) => t.userId === user.id));
     });
-  }
+  };
 
   useEffect(() => {
-    getAndSetTickets()
+    getAndSetTickets();
   }, [user]);
 
   useEffect(() => {
@@ -40,9 +45,11 @@ export const TicketList = ({user}: TicketListProps): JSX.Element => {
 
   useEffect(() => {
     setDisplayedTickets(
-      showOpen ? allTickets.filter((ticket) => ticket.dateCompleted === "") : allTickets
-    )
-  }, [showOpen, allTickets])
+      showOpen
+        ? allTickets.filter((ticket) => ticket.dateCompleted === "")
+        : allTickets,
+    );
+  }, [showOpen, allTickets]);
 
   return (
     <>
@@ -56,7 +63,14 @@ export const TicketList = ({user}: TicketListProps): JSX.Element => {
         ></TicketFilterBar>
         <article className="tickets">
           {displayedTickets.map((ticket) => {
-            return <Ticket ticket={ticket} key={ticket.id} user={user} getAndSetTickets={getAndSetTickets}></Ticket>;
+            return (
+              <Ticket
+                ticket={ticket}
+                key={ticket.id}
+                user={user}
+                getAndSetTickets={getAndSetTickets}
+              ></Ticket>
+            );
           })}
         </article>
       </div>

@@ -14,7 +14,7 @@ export interface Employee {
   rate: number;
   userId: number;
   user?: UserType;
-  employeeTickets?: EmployeeTicket[]
+  employeeTickets?: EmployeeTicket[];
 }
 
 export interface EmployeeTicket {
@@ -28,17 +28,18 @@ export const getAllEmployees = (): Promise<Employee[]> => {
   );
 };
 
-
 export const getEmployeeById = (id: number): Promise<Employee[]> => {
-    return fetch(`http://localhost:8088/employees?userId=${id}&_expand=user&_embed=employeeTickets`).then(res => res.json())
-}
+  return fetch(
+    `http://localhost:8088/employees?userId=${id}&_expand=user&_embed=employeeTickets`,
+  ).then((res) => res.json());
+};
 
 export const updateProfile = (profile: Employee): Promise<Employee> => {
   return fetch(`http://localhost:8088/employees/${profile.id}`, {
     method: "PUT",
     headers: {
-      "Content-Type" : "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(profile)
-  }).then(res => res.json())
-}
+    body: JSON.stringify(profile),
+  }).then((res) => res.json());
+};
