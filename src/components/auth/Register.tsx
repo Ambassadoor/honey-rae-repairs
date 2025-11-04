@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useState, type ChangeEvent, type FormEvent, type JSX } from "react"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
-import { createUser, getUserByEmail } from "../../services/userService"
+import { createUser, getUserByEmail } from "../../services/userService.js"
+import { type UserType } from "../../services/employeeService.js"
 
-export const Register = (props) => {
-  const [customer, setCustomer] = useState({
+export const Register = (): JSX.Element => {
+  const [customer, setCustomer] = useState<UserType>({
+    id: 0,
     email: "",
     fullName: "",
     isStaff: false,
@@ -27,7 +29,7 @@ export const Register = (props) => {
     })
   }
 
-  const handleRegister = (e) => {
+  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     getUserByEmail(customer.email).then((response) => {
       if (response.length > 0) {
@@ -40,9 +42,9 @@ export const Register = (props) => {
     })
   }
 
-  const updateCustomer = (evt) => {
-    const copy = { ...customer }
-    copy[evt.target.id] = evt.target.value
+  const updateCustomer = (evt: ChangeEvent<HTMLInputElement>) => {
+    const copy: UserType = { ...customer }
+    copy.isStaff = evt.target.value === "on"
     setCustomer(copy)
   }
 

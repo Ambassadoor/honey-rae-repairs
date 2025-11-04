@@ -1,14 +1,14 @@
 import "./Employees.css"
-import { useEffect, useState } from "react"
+import { useEffect, useState, type JSX } from "react"
 import { useParams } from "react-router-dom"
-import { getEmployeeById } from "../../services/employeeService.js"
+import { type Employee, getEmployeeById } from "../../services/employeeService.js"
 
-export const EmployeeDetails = () => {
-    const [employee, setEmployee] = useState({})
+export const EmployeeDetails = (): JSX.Element => {
+    const [employee, setEmployee] = useState<Employee>()
     const {id} = useParams()
 
     useEffect(() => {
-        getEmployeeById(id).then(res => setEmployee(res[0]))
+        getEmployeeById(Number(id)).then(res => setEmployee(res))
     }, [])
 
     return (
@@ -16,10 +16,10 @@ export const EmployeeDetails = () => {
             {employee?.userId ?
             <section className="employee">
                 <header className="employee-header">
-                    {employee.user.fullName}
+                    {employee.user?.fullName}
                 </header>
                 <div>
-                    <span className="employee-info">Email : </span>{employee.user.email}
+                    <span className="employee-info">Email : </span>{employee.user?.email}
                 </div>
                 <div>
                     <span className="employee-info">Specialty : </span>{employee.specialty}
@@ -27,7 +27,7 @@ export const EmployeeDetails = () => {
                 <div>
                     <span className="employee-info">Rate : </span>{employee.rate}
                 </div>
-                <div>Currently working on {employee.employeeTickets.length} tickets</div>
+                <div>Currently working on {employee.employeeTickets?.length} tickets</div>
             </section> : <div>Error retrieving employee info</div>
         }
         </>

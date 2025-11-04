@@ -1,11 +1,16 @@
 import "./Form.css"
-import { createTicket } from "../../services/ticketService.js"
-import { useEffect, useState } from "react"
+import { createTicket, type ServiceTicket } from "../../services/ticketService.js"
+import { useEffect, useState, type JSX } from "react"
 import { useNavigate } from "react-router-dom"
+import type { UserType } from "../../services/employeeService.js"
 
-export const TicketForm = ({user}) => {
-    const [ticket, setTicket] = useState({
-        userId: null,
+interface TicketFormProps {
+    user: UserType
+}
+
+export const TicketForm = ({user}: TicketFormProps): JSX.Element => {
+    const [ticket, setTicket] = useState<ServiceTicket>({
+        userId: 0,
         description: "",
         emergency: false,
         dateCompleted: ""
@@ -13,7 +18,7 @@ export const TicketForm = ({user}) => {
 
     const navigate = useNavigate()
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (): Promise<void>=> {
         if (ticket.userId !== null && ticket.description !== "") {
         await createTicket(ticket)
         navigate("/tickets")
@@ -23,7 +28,7 @@ export const TicketForm = ({user}) => {
     }
 
     useEffect(() => {
-        setTicket(prev => ({...prev, userId : parseInt(user.id)}))
+        setTicket(prev => ({...prev, userId : user.id}))
     }, [user])
 
     return (

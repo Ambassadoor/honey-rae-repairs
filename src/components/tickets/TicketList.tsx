@@ -1,17 +1,22 @@
-import { useEffect, useState } from "react";
-import { getAllTickets } from "../../services/ticketService.js";
+import { useEffect, useState, type JSX } from "react";
+import { getAllTickets, type ServiceTicket } from "../../services/ticketService.js";
 import "./Ticket.css";
 import { Ticket } from "./Ticket.jsx";
 import { TicketFilterBar } from "./TicketFilterBar.jsx";
+import type { User } from "../../services/employeeService.js";
 
-export const TicketList = ({user}) => {
-  const [allTickets, setAllTickets] = useState([]);
-  const [showEmergency, setShowEmergency] = useState(false);
-  const [displayedTickets, setDisplayedTickets] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [showOpen, setShowOpen] = useState(false);
+interface TicketListProps {
+  user: User
+}
 
-  const getAndSetTickets = () => {
+export const TicketList = ({user}: TicketListProps): JSX.Element => {
+  const [allTickets, setAllTickets] = useState<ServiceTicket[]>([]);
+  const [showEmergency, setShowEmergency] = useState<boolean>(false);
+  const [displayedTickets, setDisplayedTickets] = useState<ServiceTicket[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [showOpen, setShowOpen] = useState<boolean>(false);
+
+  const getAndSetTickets = (): void => {
       getAllTickets().then((tickets) => {
         user.isStaff ? setAllTickets(tickets) : setAllTickets(tickets.filter(t => t.userId === user.id));
     });

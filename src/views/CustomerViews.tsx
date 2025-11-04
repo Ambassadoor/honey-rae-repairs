@@ -3,8 +3,14 @@ import { CustomerNav } from "../components/nav/CustomerNav.jsx"
 import { Welcome } from "../components/welcome/Welcome.jsx"
 import { TicketList } from "../components/tickets/TicketList.jsx"
 import { TicketForm } from "../components/forms/TicketForm.jsx"
+import { type UserType } from "../services/employeeService.js"
 
-export const CustomerViews = ({currentUser}) => {
+// Define what props this component expects
+interface CustomerViewsProps {
+  currentUser: UserType;
+}
+
+export const CustomerViews = ({ currentUser }: CustomerViewsProps) => {
 
     return (
         <Routes>

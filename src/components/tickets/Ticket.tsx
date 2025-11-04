@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
-import { getAllEmployees } from "../../services/employeeService.js";
-import { assignTicket, closeTicket, deleteTicket } from "../../services/ticketService.js";
+import { type Employee, getAllEmployees, type UserType } from "../../services/employeeService.js";
+import { assignTicket, closeTicket, deleteTicket, type ServiceTicket } from "../../services/ticketService.js";
 
-export const Ticket = ({ ticket, user, getAndSetTickets }) => {
-  const [employees, setEmployees] = useState([]);
-  const [assignedEmployee, setAssignedEmployee] = useState({});
+interface TicketProps {
+  ticket: ServiceTicket;
+  user: UserType;
+  getAndSetTickets: () => void;
+}
+
+export const Ticket = ({ ticket, user, getAndSetTickets }: TicketProps) => {
+  const [employees, setEmployees] = useState<Employee[]>([]);
+  const [assignedEmployee, setAssignedEmployee] = useState<Employee>();
 
   useEffect(() => {
     //setEmployees(getAllEmployees())
@@ -14,29 +20,29 @@ export const Ticket = ({ ticket, user, getAndSetTickets }) => {
   useEffect(() => {
     setAssignedEmployee(
       employees.find(
-        (employee) => employee.id === ticket.employeeTickets[0]?.employeeId,
+        (employee) => employee.id === ticket.employeeTickets?.[0]?.employeeId,
       ),
     );
   }, [employees, ticket]);
 
-  const handleClaim = () => {
+  const handleClaim = (): void => {
     const newEmployeeTicket = {
-      employeeId: employees.find(e => e.userId === user.id).id,
-      serviceTicketId: ticket.id
+      employeeId: employees.find(e => e.userId === user.id)?.id || 0,
+      serviceTicketId: ticket.id || 0
     }
 
-    assignTicket(newEmployeeTicket).then(() => {
+    !Object.values(newEmployeeTicket).includes(0) && assignTicket(newEmployeeTicket).then(() => {
       getAndSetTickets()
     })
   }
 
   const handleClose = () => {
-    closeTicket(ticket.id).then(() => 
+    ticket.id && closeTicket(ticket.id).then(() => 
     getAndSetTickets())
   }
 
   const handleDelete = () => {
-    deleteTicket(ticket.id).then(() => {
+    ticket.id && deleteTicket(ticket.id).then(() => {
       getAndSetTickets()
     })
   }

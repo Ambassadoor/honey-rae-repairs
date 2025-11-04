@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type JSX } from "react";
 import { getStaffUsers } from "../../services/userService.js";
-import { User } from "../users/User.jsx";
+import { User}  from "../users/User.jsx";
 import { Link } from "react-router-dom";
 import "./Employees.css"
+import { type UserType } from "../../services/employeeService.js";
 
-export const EmployeeList = () => {
-    const [staff, setStaff] = useState([])
+export const EmployeeList = (): JSX.Element => {
+    const [staff, setStaff] = useState<UserType[]>([])
     
     useEffect(() => {
         getStaffUsers().then(res => setStaff(res))

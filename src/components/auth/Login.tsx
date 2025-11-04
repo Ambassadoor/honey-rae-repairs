@@ -1,14 +1,14 @@
-import React, { useState } from "react"
+import React, { useState, type FormEvent, type JSX } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
-import { getUserByEmail } from "../../services/userService"
+import { getUserByEmail } from "../../services/userService.js"
 
-export const Login = () => {
+export const Login = (): JSX.Element => {
   const [email, set] = useState("hpassfield7@netvibes.com")
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     getUserByEmail(email).then((foundUsers) => {
@@ -17,8 +17,8 @@ export const Login = () => {
         localStorage.setItem(
           "honey_user",
           JSON.stringify({
-            id: user.id,
-            isStaff: user.isStaff,
+            id: user?.id,
+            isStaff: user?.isStaff,
           })
         )
 

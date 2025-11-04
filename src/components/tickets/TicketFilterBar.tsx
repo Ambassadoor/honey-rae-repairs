@@ -1,6 +1,15 @@
 import { useNavigate } from "react-router-dom";
+import { type UserType } from "../../services/employeeService.js";
+import type { JSX } from "react";
 
-export const TicketFilterBar = ({ user, setShowEmergency, setSearchTerm, setShowOpen }) => {
+interface TicketFilterBarProps {
+  user: UserType;
+  setShowEmergency: (b: boolean) => void;
+  setSearchTerm: (s: string) => void;
+  setShowOpen: (b: boolean) => void;
+}
+
+export const TicketFilterBar = ({ user, setShowEmergency, setSearchTerm, setShowOpen }: TicketFilterBarProps): JSX.Element => {
 
   const navigate = useNavigate()
 

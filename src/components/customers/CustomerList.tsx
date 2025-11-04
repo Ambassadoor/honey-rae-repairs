@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, type JSX } from "react"
 import { getNonStaffUsers } from "../../services/userService.js"
 import { User } from "../users/User.jsx"
 import "./Customers.css"
 import { Link } from "react-router-dom"
+import type { UserType } from "../../services/employeeService.js"
 
 
-export const CustomerList = () => {
-    const [customers, setCustomers] = useState([])
+export const CustomerList = (): JSX.Element => {
+    const [customers, setCustomers] = useState<UserType[]>([])
 
     useEffect(() => {
         getNonStaffUsers().then(res => setCustomers(res))

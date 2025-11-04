@@ -1,6 +1,12 @@
+import type { JSX } from "react"
+import type { UserType } from "../../services/employeeService.js"
 import "./User.css"
 
-export const User = ({user}) => {
+interface UserProps {
+    user: UserType
+}
+
+export const User = ({user}: UserProps): JSX.Element => {
 
     return (
         <div className="user">

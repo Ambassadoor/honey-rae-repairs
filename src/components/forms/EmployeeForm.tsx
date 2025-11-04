@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, type JSX } from "react"
 import "./Form.css"
-import { getEmployeeById } from "../../services/employeeService.js"
+import { type Employee, getEmployeeById, type UserType } from "../../services/employeeService.js"
 import { updateProfile } from "../../services/employeeService.js"
 import { useNavigate } from "react-router-dom"
 
-export const EmployeeForm = ({user}) => {
-    const [profile, setProfile] = useState({})
+interface EmployeeFormProps {
+    user: UserType
+}
+
+export const EmployeeForm = ({user}: EmployeeFormProps): JSX.Element => {
+    const [profile, setProfile] = useState<Employee>({id: 0, specialty: "", rate: 0,userId: 0})
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -13,7 +17,7 @@ export const EmployeeForm = ({user}) => {
     }, [user])
 
     const handleSave = () => {
-        updateProfile({id: profile.id, specialty: profile.specialty, rate: profile.rate, userId: profile.userId}).then(() => {
+        profile.id !== 0 && updateProfile({id: profile.id, specialty: profile.specialty, rate: profile.rate, userId: profile.userId}).then(() => {
             navigate(`/employees/${profile.userId}`)
         })
     }
@@ -48,7 +52,7 @@ export const EmployeeForm = ({user}) => {
                         className="form-control"
                         value={profile?.rate ? profile.rate : 0}
                         onChange={(e) => {
-                            setProfile(prev => ({...prev, rate: String(e.target.value)}))
+                            setProfile(prev => ({...prev, rate: Number(e.target.value)}))
                         }}
                     />
                 </div>

@@ -1,6 +1,7 @@
+import type { JSX } from "react"
 import "./Welcome.css"
 
-export const Welcome = () => {
+export const Welcome = (): JSX.Element => {
     return (
         <div className="welcome-container">
             <h1>
